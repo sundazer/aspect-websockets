@@ -3,6 +3,9 @@ package com.example.demo.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "people")
 public class Person extends BaseEntity<Long> {
@@ -17,6 +20,8 @@ public class Person extends BaseEntity<Long> {
 		return id;
 	}
 	
+	@Transient
+	@JsonIgnore
 	public String getType() {
 		return getClass().getAnnotation(Entity.class).name();
 	}
