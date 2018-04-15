@@ -6,4 +6,5 @@ import javax.persistence.MappedSuperclass;
 public abstract class BaseEntity<K> {
 
 	public abstract K getId();
+	public abstract String getType();
 }

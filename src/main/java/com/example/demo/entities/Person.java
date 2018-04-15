@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity(name = "persons")
+@Entity(name = "people")
 public class Person extends BaseEntity<Long> {
 	
 	@Id
@@ -15,6 +15,10 @@ public class Person extends BaseEntity<Long> {
 
 	public Long getId() {
 		return id;
+	}
+	
+	public String getType() {
+		return getClass().getAnnotation(Entity.class).name();
 	}
 
 	public void setId(Long id) {

@@ -10,10 +10,15 @@ import com.example.demo.entities.BaseEntity;
 @Aspect
 public class WebsocketUpdateAspect {
 	
-	@AfterReturning(pointcut = "com.example.demo.SystemArchitecture.ServiceSave() "
-			+ "|| com.example.demo.SystemArchitecture.ServiceDelete()", 
+	@AfterReturning(pointcut = "com.example.demo.SystemArchitecture.ServiceSave()", 
 			returning = "entity")
 	public void sendUpdate(BaseEntity<Long> entity) {
-		System.out.println(entity.getId());
+		System.out.println("Save: " + entity.getType() + " id: " + entity.getId());
+	}
+	
+	@AfterReturning(pointcut = "com.example.demo.SystemArchitecture.ServiceDelete()",
+			returning = "entity")
+	public void sendDeleteUpdate(BaseEntity<Long> entity) {
+		System.out.println("Delete: " + entity.getType() + " id: " + entity.getId());		
 	}
 }
