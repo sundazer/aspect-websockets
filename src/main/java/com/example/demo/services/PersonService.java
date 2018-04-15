@@ -22,15 +22,18 @@ public class PersonService {
 		return people;
 	}
 	
-	public Optional<Person> findOne(Long id) {
-		return personRepository.findById(id);
+	public Person findOne(Long id) {
+		Optional<Person> person = personRepository.findById(id);
+		return person.orElseThrow(IllegalArgumentException::new);
 	}
 	
 	public Person save(Person person) {
 		return personRepository.save(person);
 	}
 	
-	public void delete(Long id) {
-		personRepository.deleteById(id);
+	public Person delete(Long id) {
+		Optional<Person> person = personRepository.findById(id);
+		person.ifPresent(personRepository::delete);
+		return person.orElseThrow(IllegalArgumentException::new);
 	}
 }

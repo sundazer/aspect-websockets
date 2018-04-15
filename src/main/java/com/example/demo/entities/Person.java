@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity(name = "persons")
-public class Person {
+public class Person extends BaseEntity<Long> {
 	
 	@Id
 	@GeneratedValue

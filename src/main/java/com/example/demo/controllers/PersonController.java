@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,10 +30,9 @@ public class PersonController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Person> getOne(@PathVariable Long id) {
-		Optional<Person> optional = personService.findOne(id);
-		if (optional.isPresent()) {
-			return new ResponseEntity<Person>(optional.get(), HttpStatus.OK);
-		} else {
+		try {
+			return new ResponseEntity<Person>(personService.findOne(id), HttpStatus.OK);
+		} catch (IllegalArgumentException e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -45,7 +43,11 @@ public class PersonController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
-		personService.delete(id);
+	public ResponseEntity<Person> delete(@PathVariable Long id) {
+		try {
+			return new ResponseEntity<>(personService.delete(id), HttpStatus.OK);
+		} catch (IllegalArgumentException e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 }
